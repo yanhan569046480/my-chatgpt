@@ -18,6 +18,8 @@ import {
 
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
+import logoSVG from '../assets/logo.svg';
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -98,36 +100,76 @@ export default function Layout(props) {
           elevation={0}
         >
           <Toolbar disableGutters>
+            <ButtonBase
+              onClick={() => navigate('/')}
+              sx={{
+                display: { xs: 'none', md: 'flex' },
+                ml: 2,
+              }}
+            >
+              <img src={logoSVG} alt="logo" />
+            </ButtonBase>
+
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
+              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenNavMenu}
+                  color="inherit"
+                  sx={{ color: '#758ca3', ml: 2 }}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorElNav}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                  open={Boolean(anchorElNav)}
+                  onClose={handleCloseNavMenu}
+                  sx={{
+                    display: { xs: 'block', md: 'none' },
+                  }}
+                >
+                  <Box
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <Button
+                      variant="text"
+                      sx={{ color: '#758ca3', ml: 2 }}
+                      startIcon={<HomeIcon />}
+                      onClick={() => navigate('/')}
+                    >
+                      Home
+                    </Button>
+                  </Box>
+                </Menu>
+              </Box>
+            </Box>
+
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              <Button
+                variant="text"
                 sx={{ color: '#758ca3', ml: 2 }}
+                startIcon={<HomeIcon />}
+                onClick={() => navigate('/')}
               >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' },
-                }}
-              ></Menu>
+                Home
+              </Button>
             </Box>
           </Toolbar>
         </AppBar>
