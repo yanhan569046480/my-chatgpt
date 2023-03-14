@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
+import Tooltip, { tooltipClasses, TooltipProps } from '@mui/material/Tooltip';
 
 export const iconStyles = {
   width: '16px',
@@ -43,3 +45,13 @@ export const labelStyles = {
   fontWeight: 'bold',
   color: 'rgb(5, 26, 46)',
 };
+
+export const LightTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[1],
+  },
+}));

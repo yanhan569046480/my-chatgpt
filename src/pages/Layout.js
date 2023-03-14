@@ -20,6 +20,11 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import logoSVG from '../assets/logo.svg';
+import { LightTooltip } from '../utils/utils';
+import PersonIcon from '@mui/icons-material/Person';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -89,6 +94,8 @@ export default function Layout(props) {
   const { children } = props;
   const navigate = useNavigate();
 
+  const [activeUser, setActiveUser] = useState('Admin');
+
   return (
     <Box sx={{ display: 'flex' }}>
       <HideOnScroll {...props}>
@@ -111,54 +118,52 @@ export default function Layout(props) {
             </ButtonBase>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleOpenNavMenu}
-                  color="inherit"
-                  sx={{ color: '#758ca3', ml: 2 }}
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+                sx={{ color: '#758ca3', ml: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
+              >
+                <Box
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                  }}
                 >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorElNav}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                  open={Boolean(anchorElNav)}
-                  onClose={handleCloseNavMenu}
-                  sx={{
-                    display: { xs: 'block', md: 'none' },
-                  }}
-                >
-                  <Box
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'flex-start',
-                    }}
+                  <Button
+                    variant="text"
+                    sx={{ color: '#758ca3', ml: 2 }}
+                    startIcon={<HomeIcon />}
+                    onClick={() => navigate('/')}
                   >
-                    <Button
-                      variant="text"
-                      sx={{ color: '#758ca3', ml: 2 }}
-                      startIcon={<HomeIcon />}
-                      onClick={() => navigate('/')}
-                    >
-                      Home
-                    </Button>
-                  </Box>
-                </Menu>
-              </Box>
+                    Home
+                  </Button>
+                </Box>
+              </Menu>
             </Box>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -170,6 +175,63 @@ export default function Layout(props) {
               >
                 Home
               </Button>
+            </Box>
+
+            <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+              {activeUser ? (
+                <LightTooltip
+                  title={
+                    <div>
+                      <Button
+                        variant="text"
+                        // onClick={handleSignOut}
+                        startIcon={<LogoutIcon />}
+                        size="small"
+                      >
+                        SignOut
+                      </Button>
+                    </div>
+                  }
+                >
+                  <Button
+                    variant="text"
+                    sx={{ color: '#758ca3', mr: 2 }}
+                    startIcon={<PersonIcon />}
+                  >
+                    {/*{activeUser?.name}*/}
+                    Admin
+                  </Button>
+                </LightTooltip>
+              ) : (
+                <Stack
+                  direction={'row'}
+                  spacing={1}
+                  alignItems="center"
+                  sx={{ color: '#758ca3', mr: 2 }}
+                >
+                  <Button
+                    variant="text"
+                    sx={{ color: '#758ca3', mr: 1 }}
+                    onClick={() => {
+                      navigate('/signup');
+                    }}
+                    startIcon={<HistoryEduIcon />}
+                  >
+                    SignUp
+                  </Button>
+
+                  <Button
+                    variant="text"
+                    sx={{ color: '#758ca3' }}
+                    onClick={() => {
+                      navigate('/signin');
+                    }}
+                    startIcon={<LoginIcon />}
+                  >
+                    SignIn
+                  </Button>
+                </Stack>
+              )}
             </Box>
           </Toolbar>
         </AppBar>
