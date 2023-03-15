@@ -45,7 +45,7 @@ export default function Home() {
   const classes = useStyles();
 
   return (
-    <Box sx={{ flexGrow: 1, mt: 30 }}>
+    <Box sx={{ flexGrow: 1, mt: 20 }}>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
