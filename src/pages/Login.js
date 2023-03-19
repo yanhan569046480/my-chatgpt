@@ -5,6 +5,7 @@ import FormItemExtension from '../components/FormItemExtension';
 import { useImmer } from 'use-immer';
 import { FORM_ITEM_WIDTH_400, useLoginRegisterStyles } from '../utils/utils';
 import { AuthContext } from './AuthContextProvider';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const loginRegisterClasses = useLoginRegisterStyles();
@@ -22,6 +23,7 @@ export default function Login() {
   const [, forceUpdate] = useState();
 
   const { activeUser, setActiveUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   return (
     <Box className={loginRegisterClasses.root}>
@@ -87,6 +89,7 @@ export default function Login() {
                 setActiveUser((prev) => {
                   prev.name = form.name;
                 });
+                navigate('/');
               } else {
                 forceUpdate(1);
                 validator.current.showMessages();

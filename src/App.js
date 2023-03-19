@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Layout from './pages/Layout';
@@ -10,6 +10,7 @@ import Chat from './pages/Chat';
 import SQL from './pages/SQL';
 import Report from './pages/Report';
 import English from './pages/English';
+import AuthRoute from './components/AuthRoute';
 import { AuthContextProvider } from './pages/AuthContextProvider';
 
 function App() {
@@ -19,7 +20,14 @@ function App() {
         <BrowserRouter>
           <Layout window={() => window}>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route
+                path="/"
+                element={
+                  <AuthRoute>
+                    <Home />
+                  </AuthRoute>
+                }
+              />
               <Route path="/Login" element={<Login />} />
               <Route path="/Register" element={<Register />} />
               <Route path="/Chat" element={<Chat />} />
