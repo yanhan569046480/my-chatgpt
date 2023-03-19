@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
-import Layout from './pages/Layout';
+import Layout from './components/Layout';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -11,11 +10,11 @@ import SQL from './pages/SQL';
 import Report from './pages/Report';
 import English from './pages/English';
 import AuthRoute from './components/AuthRoute';
-import { AuthContextProvider } from './pages/AuthContextProvider';
+import { AuthContextProvider } from './components/AuthContextProvider';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <AuthContextProvider>
         <BrowserRouter>
           <Layout window={() => window}>

@@ -4,7 +4,7 @@ import { Box, Button, TextField } from '@mui/material';
 import FormItemExtension from '../components/FormItemExtension';
 import { useImmer } from 'use-immer';
 import { FORM_ITEM_WIDTH_400, useLoginRegisterStyles } from '../utils/utils';
-import { AuthContext } from './AuthContextProvider';
+import { AuthContext } from '../components/AuthContextProvider';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
