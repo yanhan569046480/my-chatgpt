@@ -25,6 +25,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
+import { useImmer } from 'use-immer';
+import { AuthContext } from './AuthContextProvider';
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -94,7 +96,7 @@ export default function Layout(props) {
   const { children } = props;
   const navigate = useNavigate();
 
-  const [activeUser, setActiveUser] = useState('Admin');
+  const { activeUser, setActiveUser } = useContext(AuthContext);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -102,7 +104,7 @@ export default function Layout(props) {
         <AppBar
           sx={{
             zIndex: (theme) => theme.zIndex.drawer + 1,
-            background: '#FFF',
+            background: '#f8f9fc',
           }}
           elevation={0}
         >
@@ -154,41 +156,50 @@ export default function Layout(props) {
                     alignItems: 'flex-start',
                   }}
                 >
-                  <Button
-                    variant="text"
-                    sx={{ color: '#758ca3', ml: 2 }}
-                    startIcon={<HomeIcon />}
-                    onClick={() => navigate('/')}
-                  >
-                    Home
-                  </Button>
+                  {activeUser?.name && (
+                    <Button
+                      variant="text"
+                      sx={{ color: '#758ca3', ml: 2 }}
+                      startIcon={<HomeIcon />}
+                      onClick={() => navigate('/')}
+                    >
+                      Home
+                    </Button>
+                  )}
                 </Box>
               </Menu>
             </Box>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Button
-                variant="text"
-                sx={{ color: '#758ca3', ml: 2 }}
-                startIcon={<HomeIcon />}
-                onClick={() => navigate('/')}
-              >
-                Home
-              </Button>
+              {activeUser?.name && (
+                <Button
+                  variant="text"
+                  sx={{ color: '#758ca3', ml: 2 }}
+                  startIcon={<HomeIcon />}
+                  onClick={() => navigate('/')}
+                >
+                  Home
+                </Button>
+              )}
             </Box>
 
             <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-              {activeUser ? (
+              {activeUser?.name ? (
                 <LightTooltip
                   title={
                     <div>
                       <Button
                         variant="text"
-                        // onClick={handleSignOut}
+                        onClick={() => {
+                          setActiveUser((prev) => {
+                            prev.name = '';
+                          });
+                          navigate('/Login');
+                        }}
                         startIcon={<LogoutIcon />}
                         size="small"
                       >
-                        SignOut
+                        Login Out
                       </Button>
                     </div>
                   }
@@ -198,8 +209,7 @@ export default function Layout(props) {
                     sx={{ color: '#758ca3', mr: 2 }}
                     startIcon={<PersonIcon />}
                   >
-                    {/*{activeUser?.name}*/}
-                    Admin
+                    {activeUser?.name}
                   </Button>
                 </LightTooltip>
               ) : (
@@ -211,24 +221,24 @@ export default function Layout(props) {
                 >
                   <Button
                     variant="text"
-                    sx={{ color: '#758ca3', mr: 1 }}
+                    sx={{ color: '#758ca3' }}
                     onClick={() => {
-                      navigate('/signup');
+                      navigate('/Login');
                     }}
-                    startIcon={<HistoryEduIcon />}
+                    startIcon={<LoginIcon />}
                   >
-                    SignUp
+                    Login
                   </Button>
 
                   <Button
                     variant="text"
-                    sx={{ color: '#758ca3' }}
+                    sx={{ color: '#758ca3', mr: 1 }}
                     onClick={() => {
-                      navigate('/signin');
+                      navigate('/Register');
                     }}
-                    startIcon={<LoginIcon />}
+                    startIcon={<HistoryEduIcon />}
                   >
-                    SignIn
+                    Register
                   </Button>
                 </Stack>
               )}

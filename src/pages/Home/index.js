@@ -56,7 +56,7 @@ export default function Home() {
             <Box
               className={classes.cardContent}
               onClick={() => {
-                navigate('/chat');
+                navigate('/Chat');
               }}
             >
               <img src={chatSVG} alt="chat" className={classes.img} />
@@ -75,7 +75,7 @@ export default function Home() {
             <Box
               className={classes.cardContent}
               onClick={() => {
-                navigate('/sql');
+                navigate('/SQL');
               }}
             >
               <img src={sqlSVG} alt="sql" className={classes.img} />
@@ -94,7 +94,7 @@ export default function Home() {
             <Box
               className={classes.cardContent}
               onClick={() => {
-                navigate('/report');
+                navigate('/Report');
               }}
             >
               <img src={reportSVG} alt="report" className={classes.img} />
@@ -113,7 +113,7 @@ export default function Home() {
             <Box
               className={classes.cardContent}
               onClick={() => {
-                navigate('/english');
+                navigate('/English');
               }}
             >
               <img src={englishSVG} alt="english" className={classes.img} />
